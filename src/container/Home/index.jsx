@@ -1,10 +1,10 @@
-import { Container } from "./styles";
+import { Container } from './styles';
 
 export default function HomeContainer() {
-    return (
-      <Container>
-        <h1>Ola</h1>
-      </Container>
-    )
-  }
-  
+  const fild = 0;
+  return (
+    <Container>
+      <h1>Ola</h1>
+    </Container>
+  );
+}
