@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import * as Styled from './styles';
 
@@ -15,30 +14,23 @@ import { mockBase } from '../Base/mock';
 import { Base } from '../Base';
 import { PageNotFound } from '../PageNotFound';
 import { Loading } from '../Loading';
-
+import dataApi from '../../api/dados.json';
 import config from '../../config';
 
 function Home() {
   const [data, setData] = useState([]);
-  const location = useLocation();
 
   useEffect(() => {
-    const pathname = location.pathname.replace(/[^a-z0-9-_]/gi, '');
-    const slug = pathname ? pathname : config.defaultSlug;
-
     const load = async () => {
       try {
-        const data = await fetch(config.url + slug);
-        const json = await data.json();
-        const pageData = mapData(json);
-        setData(pageData[0]);
+        setData(dataApi[0]);
       } catch (e) {
         setData(undefined);
       }
     };
 
     load();
-  }, [location]);
+  }, []);
 
   useEffect(() => {
     if (data === undefined) {
@@ -67,11 +59,12 @@ function Home() {
 
   return (
     <Base
-      links={links}
-      footerHtml={footerHtml}
-      logoData={{ text, link, srcImg }}
+      // links={links}
+      // footerHtml={footerHtml}
+      // logoData={{ text, link, srcImg }}
+      {...mockBase}
     >
-      {sections.map((section, index) => {
+      {/* {sections.map((section, index) => {
         const { component } = section;
         const key = `${slug}-${index}`;
 
@@ -90,7 +83,7 @@ function Home() {
         if (component === 'section.section-grid-image') {
           return <GridImage key={key} {...section} />;
         }
-      })}
+      })} */}
     </Base>
   );
 }

@@ -20,4 +20,6 @@ export const mockBase = {
     link: '#',
   },
   footerHtml: '<p>Teste de footer</p>',
+  title: 'First Page',
+  slug: 'first-page',
 };
