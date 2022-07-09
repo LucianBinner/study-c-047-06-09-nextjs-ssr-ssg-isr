@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-
-import * as Styled from './styles';
+import axios from 'axios';
 
 import { mapData } from '../../api/map-data';
 
-import { Heading } from '../../components/Heading';
 import { GridTwoColumns } from '../../components/GridTwoColumns';
 import { GridContent } from '../../components/GridContent';
 import { GridText } from '../../components/GridText';
@@ -14,7 +12,7 @@ import { mockBase } from '../Base/mock';
 import { Base } from '../Base';
 import { PageNotFound } from '../PageNotFound';
 import { Loading } from '../Loading';
-import dataApi from '../../api/dados.json';
+
 import config from '../../config';
 
 function Home() {
@@ -23,7 +21,9 @@ function Home() {
   useEffect(() => {
     const load = async () => {
       try {
-        setData(dataApi[0]);
+        const data = await axios.get(config.url);
+        const pageData = mapData(data.data);
+        setData(pageData[0]);
       } catch (e) {
         setData(undefined);
       }
@@ -59,12 +59,11 @@ function Home() {
 
   return (
     <Base
-      // links={links}
-      // footerHtml={footerHtml}
-      // logoData={{ text, link, srcImg }}
-      {...mockBase}
+      links={links}
+      footerHtml={footerHtml}
+      logoData={{ text, link, srcImg }}
     >
-      {/* {sections.map((section, index) => {
+      {sections.map((section, index) => {
         const { component } = section;
         const key = `${slug}-${index}`;
 
@@ -83,7 +82,7 @@ function Home() {
         if (component === 'section.section-grid-image') {
           return <GridImage key={key} {...section} />;
         }
-      })} */}
+      })}
     </Base>
   );
 }
