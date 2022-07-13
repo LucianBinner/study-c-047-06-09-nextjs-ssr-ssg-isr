@@ -11,10 +11,7 @@ app.get('/pages', (req, res) => {
   const { slug } = req.query;
   let newData = data;
   if (slug) {
-    newData = data.filter((el) => {
-      const title = String(el.title).replace(/\s/gi, '-').toLocaleLowerCase();
-      if (slug === title) return el;
-    });
+    newData = data.filter((el) => slug === el.slug);
   }
   return res.json(newData);
 });
