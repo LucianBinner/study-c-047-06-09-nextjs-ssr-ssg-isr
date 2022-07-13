@@ -1,5 +1,5 @@
 export default {
   url: 'http://localhost:3001',
-  siteName: 'Otávio Miranda',
+  siteName: 'Lucian Binner',
   defaultSlug: 'landing-page',
 };

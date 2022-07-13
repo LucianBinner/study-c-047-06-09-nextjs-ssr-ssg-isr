@@ -7,8 +7,16 @@ const app = express();
 
 app.use(cors());
 
-app.get('/', (req, res) => {
-  return res.json(data);
+app.get('/pages', (req, res) => {
+  const { slug } = req.query;
+  let newData = data;
+  if (slug) {
+    newData = data.filter((el) => {
+      const title = String(el.title).replace(/\s/gi, '-').toLocaleLowerCase();
+      if (slug === title) return el;
+    });
+  }
+  return res.json(newData);
 });
 
 app.listen(3001, () => {

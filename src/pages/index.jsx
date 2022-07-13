@@ -1,23 +1,26 @@
 import Home from '../templates/Home';
-import axios from 'axios';
-import config from '../config';
-import { mapData } from '../api/map-data';
+import { loadPages } from '../api/load-pages';
 
 export default function HomePage({ data = null }) {
   return <Home data={data} />;
 }
 
 export const getStaticProps = async () => {
-  let getStaticPropsReturn = {
+  let data = [];
+  try {
+    data = await loadPages('landing-page');
+  } catch (error) {
+    console.log(error);
+  }
+  if (!data || !data.length) {
+    // Caso não tenha dados é exibido a página notFound
+    return {
+      notFound: true,
+    };
+  }
+  return {
     props: {
-      data: [],
+      data,
     },
   };
-  try {
-    const raw = await axios.get(config.url);
-    getStaticPropsReturn.props.data = mapData(raw.data);
-    return getStaticPropsReturn;
-  } catch (error) {
-    return getStaticPropsReturn;
-  }
 };
