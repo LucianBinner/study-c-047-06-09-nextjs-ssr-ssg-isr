@@ -7,6 +7,7 @@ import { Base } from '../Base';
 
 import Head from 'next/head';
 import config from '../../config';
+import { theme } from '../../styles/theme';
 
 function Home({ data }) {
   const { menu, sections, footerHtml, slug, title } = data[0];
@@ -18,6 +19,11 @@ function Home({ data }) {
         <title>
           {title} | {config.siteName}
         </title>
+        <meta name="theme-color" content={theme.colors.primaryColor} />
+        <meta
+          name="description"
+          content="Landing page mais legal da internet"
+        />
       </Head>
       <Base
         links={links}
