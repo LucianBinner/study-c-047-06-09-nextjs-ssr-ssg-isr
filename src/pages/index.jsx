@@ -5,7 +5,8 @@ export default function HomePage({ data = null }) {
   return <Home data={data} />;
 }
 
-export const getStaticProps = async () => {
+// getServerSideProps
+export const getServerSideProps = async () => {
   let data = [];
   try {
     data = await loadPages('landing-page');
@@ -24,3 +25,24 @@ export const getStaticProps = async () => {
     },
   };
 };
+
+// // GetStaticProps
+// export const getStaticProps = async () => {
+//   let data = [];
+//   try {
+//     data = await loadPages('landing-page');
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   if (!data || !data.length) {
+//     // Caso não tenha dados é exibido a página notFound
+//     return {
+//       notFound: true,
+//     };
+//   }
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// };
